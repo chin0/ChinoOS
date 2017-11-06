@@ -47,7 +47,8 @@ PROTECTEDMODE:
     call PRINTMESSAGE
     add esp,12
 
-    jmp $ ; loop
+    ;cs 세그먼트 ㄹ셀렉터를 0x08로 변경하면서 0x10200 어드레스로(C 커널 코드로) 이동.`
+    jmp dword 0x08: 0x10200 ; c언어 커널이 존재하는 0x10200 어드레스로 이동하여 C언어 커널 수행.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; function code          ;

@@ -26,7 +26,7 @@ Disk.img: 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
 	@echo ====================== Disk Image Build Start =============
 	@echo
 	
-	cat $^ > Disk.img #$^ : Dependency에 나열된 전체 파일
+	./ImageMaker $^ #$^ : Dependency에 나열된 전체 파일
 
 	@echo
 	@echo ==================== All Build Complete ================

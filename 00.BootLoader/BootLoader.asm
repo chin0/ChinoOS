@@ -6,7 +6,7 @@ SECTION .text
 ;0x7c0 : 0x7c00은 BIOS가 부트로더를 로딩하는곳
 jmp 0x07c0:START ; cs 세그먼트 레지스터에 0x7c0을 복사하면서 START레이블로 이동.
 
-TOTALSECTORCOUNT: dw 1
+TOTALSECTORCOUNT: dw 2
 
 START:
     mov ax, 0x07c0 
