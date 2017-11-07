@@ -10,7 +10,27 @@ START:
     mov ax,0x1000 ; 보호모드 엔트리 포인트의 시작 어드레스(0x10000)를 세그먼트 레지스터값으로 변환
     mov ds,ax ;set ds
     mov es,ax ;set es
+
+    ;;;;;;;;;;;;;;;;;;;
+    ; enable a20 gate ;
+    ;;;;;;;;;;;;;;;;;;;
+    ;if error occured, switch system control point;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; BIOS 서비스를 사용해서 a20 게이트를 활성화
+    mov ax, 0x2401 ; a20 게이트 활성화 서비스 설정
+    int 0x15 ; BIOS 인터럽트 서비스 호출
     
+    jc .A20GATEERROR
+    jmp .A20GATESUCCESS
+
+.A20GATEERROR:
+    ; 에러 발생 시, 시스템 컨트롤 포트로 전환 시도.
+    in al, 0x92 ; 시스템 컨트롤 포트에서 1바이트 읽어 AL 레지스터에 저장
+    or al, 0x02
+    and al, 0xFE
+    out 0x92, al
+
+.A20GATESUCCESS:
     cli ;disable register
     lgdt [GDTR] ; Set GDTR data structure to processor to load GDT table
     
