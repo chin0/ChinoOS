@@ -7,6 +7,7 @@ SECTION .text
 jmp 0x07c0:START ; cs 세그먼트 레지스터에 0x7c0을 복사하면서 START레이블로 이동.
 
 TOTALSECTORCOUNT: dw 2
+KERNEL32SECTORCOUNT : dw 2
 
 START:
     mov ax, 0x07c0 
